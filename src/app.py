@@ -35,7 +35,6 @@ class SpotifyService():
 
         # convert the response to JSON
         auth_response_data = auth_response.json()
-        print(auth_response_data)
 
         # save the access token
         access_token = auth_response_data['access_token']
@@ -46,7 +45,7 @@ class SpotifyService():
     
     def get_artist(self, id):
         artist = self.spotify.artist(id)
-        print(json.dumps(artist, sort_keys=True, indent=4))
+        return artist
 
     ### TODO ###
 
