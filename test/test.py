@@ -1,8 +1,9 @@
 # ```python -m unittest test.test``` on cmd
 
-import json
 import unittest
+
 from src.app import SpotifyService
+
 
 class TestSpotifyService(unittest.TestCase):
 
