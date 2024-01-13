@@ -16,3 +16,4 @@ class TestSpotifyService(unittest.TestCase):
         artist = self.service.get_artist(taylor_swift_id)
         # print(json.dumps(artist, sort_keys=True, indent=4))
         self.assertEqual(artist['name'], "Taylor Swift")
+

@@ -2,3 +2,5 @@
 2 --> make actual project of some sort
 * Spotify mood ring (mood based off of recent listening)
 * AI generated playlist images based on songs in playlist
+* Get recently played tracks --> make some graphs off of this (problem: we don't know if the user skipped the song or not)
+* Recommend reference material/books/songs based off recently listened to podcasts

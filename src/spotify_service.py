@@ -3,7 +3,7 @@ import os
 import requests
 import spotipy
 from dotenv import load_dotenv
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 
 load_dotenv()
 
@@ -11,7 +11,9 @@ CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 BASE_URL = 'https://api.spotify.com/v1/'
 AUTH_URL = 'https://accounts.spotify.com/api/token'
-SAMPLE_ARTIST_ID = '06HL4z0CvFAxyc27GXpf02'
+SPOTIPY_REDIRECT_URI = 'http://localhost:8888/callback'
+SCOPE = 'user-read-recently-played user-library-read'
+CACHE = '.spotipyoauthcache'
 
 class SpotifyService():
     '''
@@ -26,7 +28,7 @@ class SpotifyService():
         '''
         Perform auth request with id/secret in env file
         '''
-        self.spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
+        self.spotify = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(), auth_manager=SpotifyOAuth(scope=SCOPE, redirect_uri=SPOTIPY_REDIRECT_URI))
         auth_response = requests.post(AUTH_URL, {
         'grant_type': 'client_credentials',
         'client_id': CLIENT_ID,
@@ -39,7 +41,7 @@ class SpotifyService():
         # save the access token
         access_token = auth_response_data['access_token']
         self.headers = {'Authorization': 'Bearer {token}'.format(token=access_token)}
-
+        
     def test(self): # pass in "self" to member functions
         print("test")
     
@@ -69,3 +71,14 @@ class SpotifyService():
         '''
         after confirmation, set the playlist cover to AI image generated
         '''
+
+    ### DATA EXPERIMENTATION ###
+        
+    def get_n_recent_tracks(self, n):
+        tracks = self.spotify.current_user_recently_played(n)
+        print(tracks)
+
+
+service = SpotifyService()
+service.get_n_recent_tracks(10)
+        
