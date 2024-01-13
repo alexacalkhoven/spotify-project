@@ -3,7 +3,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import os
 from dotenv import load_dotenv
 import requests
-import json
 
 load_dotenv()
 
@@ -11,7 +10,6 @@ CLIENT_ID = os.getenv('SPOTIPY_CLIENT_ID')
 CLIENT_SECRET = os.getenv('SPOTIPY_CLIENT_SECRET')
 BASE_URL = 'https://api.spotify.com/v1/'
 AUTH_URL = 'https://accounts.spotify.com/api/token'
-SAMPLE_ARTIST_ID = '06HL4z0CvFAxyc27GXpf02'
 
 class SpotifyService():
     '''
@@ -73,7 +71,6 @@ class SpotifyService():
 def main():
     print("main")
     service = SpotifyService()
-    service.get_artist(SAMPLE_ARTIST_ID)
 
 if __name__ == '__main__':
     main()
