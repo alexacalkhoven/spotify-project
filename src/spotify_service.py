@@ -108,30 +108,31 @@ class SpotifyService():
         time_signature = features[0]['time_signature']
 
         track = {
-        "name": name, 
-        "album": album, 
-        "artist": artist, 
-        "release_date": release_date, 
-        "length": length,
-        "popularity": popularity,
-        "acousticness": acousticness,
-        "danceability": danceability,
-        "energy": energy,
-        "instrumentalness": instrumentalness,
-        "liveness": liveness,
-        "loudness": loudness,
-        "speechiness": speechiness,
-        "tempo": tempo,
-        "time_signature": time_signature
-        }
+            "id": id,
+            "name": name, 
+            "album": album, 
+            "artist": artist, 
+            "release_date": release_date, 
+            "length": length,
+            "popularity": popularity,
+            "acousticness": acousticness,
+            "danceability": danceability,
+            "energy": energy,
+            "instrumentalness": instrumentalness,
+            "liveness": liveness,
+            "loudness": loudness,
+            "speechiness": speechiness,
+            "tempo": tempo,
+            "time_signature": time_signature
+            }
 
         return track
 
 
-service = SpotifyService()
-response = service.get_n_recent_tracks(5)
-items = response['items']
-track_ids = [track['track']['id'] for track in items]
-for track_id in track_ids:
-    properties = service.get_properties(track_id)
-    print(json.dumps(properties, indent=4))
+# service = SpotifyService()
+# response = service.get_n_recent_tracks(5)
+# items = response['items']
+# track_ids = [track['track']['id'] for track in items]
+# for track_id in track_ids:
+#     properties = service.get_properties(track_id)
+#     print(json.dumps(properties, indent=4))
