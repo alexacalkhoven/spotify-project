@@ -4,3 +4,4 @@
 * AI generated playlist images based on songs in playlist
 * Get recently played tracks --> make some graphs off of this (problem: we don't know if the user skipped the song or not)
 * Recommend reference material/books/songs based off recently listened to podcasts
+* Could see how long each song was played by checking start time + duration vs start time of next song

@@ -14,6 +14,10 @@ class TestSpotifyService(unittest.TestCase):
     def test_get_artist(self):
         taylor_swift_id = '06HL4z0CvFAxyc27GXpf02'
         artist = self.service.get_artist(taylor_swift_id)
-        # print(json.dumps(artist, sort_keys=True, indent=4))
         self.assertEqual(artist['name'], "Taylor Swift")
+
+    # def test_get_n_recent_tracks(self):
+    #     n = 5
+    #     tracks = self.service.get_n_recent_tracks(n)
+    #     self.assertLessEqual(len(tracks), n) # we should get at most n tracks back
 

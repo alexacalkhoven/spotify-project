@@ -4,6 +4,7 @@ import requests
 import spotipy
 from dotenv import load_dotenv
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
+import json
 
 load_dotenv()
 
@@ -76,9 +77,61 @@ class SpotifyService():
         
     def get_n_recent_tracks(self, n):
         tracks = self.spotify.current_user_recently_played(n)
-        print(tracks)
+        return tracks
+    
+    def get_properties(self, id):
+        '''
+        ** CREDIT: anushakuppahally on GitHub **
+        This function returns the characteristics for a track
+        This function uses a track's ID as an input 
+        Then, this function returns a list of strings, floats, and integers
+        Example output: ['Buzzcut Season', 'Pure Heroine', 'Lorde', '2013-09-27', 246755, 67, 0.606, 0.733, 0.62, 0.305, 0.117, -10.525, 0.075, 111.039, 4]
+        '''
+        meta = self.spotify.track(id)
+        features = self.spotify.audio_features(id)
+        name = meta['name']
+        album = meta['album']['name']
+        artist = meta['album']['artists'][0]['name']
+        release_date = meta['album']['release_date']
+        length = meta['duration_ms']
+        popularity = meta['popularity']
+
+        #song features
+        acousticness = features[0]['acousticness']
+        danceability = features[0]['danceability']
+        energy = features[0]['energy']
+        instrumentalness = features[0]['instrumentalness']
+        liveness = features[0]['liveness']
+        loudness = features[0]['loudness']
+        speechiness = features[0]['speechiness']
+        tempo = features[0]['tempo']
+        time_signature = features[0]['time_signature']
+
+        track = {
+        "name": name, 
+        "album": album, 
+        "artist": artist, 
+        "release_date": release_date, 
+        "length": length,
+        "popularity": popularity,
+        "acousticness": acousticness,
+        "danceability": danceability,
+        "energy": energy,
+        "instrumentalness": instrumentalness,
+        "liveness": liveness,
+        "loudness": loudness,
+        "speechiness": speechiness,
+        "tempo": tempo,
+        "time_signature": time_signature
+        }
+
+        return track
 
 
 service = SpotifyService()
-service.get_n_recent_tracks(10)
-        
+response = service.get_n_recent_tracks(5)
+items = response['items']
+track_ids = [track['track']['id'] for track in items]
+for track_id in track_ids:
+    properties = service.get_properties(track_id)
+    print(json.dumps(properties, indent=4))
